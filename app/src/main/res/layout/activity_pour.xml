@@ -5,26 +5,38 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".PourActivity">
 
+
+
     <SeekBar
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/pourMeter" />
+        android:id="@+id/pourMeter"
+        android:max="@integer/max_size_cl" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/pour_price"
+        android:text="@string/dummy_price"
         android:id="@+id/priceAmount"
         android:layout_below="@+id/pourMeter"
         android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/dummy_amount"
+        android:id="@+id/pourAmount"
+        android:layout_below="@+id/priceAmount"
+        android:layout_centerHorizontal="true"/>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/buy_button"
         android:id="@+id/buyButton"
-        android:layout_below="@+id/priceAmount"
+        android:layout_below="@+id/pourAmount"
         android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

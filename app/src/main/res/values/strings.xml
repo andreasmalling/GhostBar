@@ -3,6 +3,11 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-    <string name="pour_price">0 kr.</string>
+    <string name="dummy_price">0.00 kr.</string>
+    <string name="dummy_amount">0 cl.</string>
+
     <string name="buy_button">Buy beer</string>
+
+    <string name="currency">kr.</string>
+    <string name="measure">cl.</string>
 </resources>
