@@ -3,4 +3,6 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="pour_price">0 kr.</string>
+    <string name="buy_button">Buy beer</string>
 </resources>
