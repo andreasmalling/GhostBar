@@ -44,6 +44,8 @@ public class PourActivity extends AppCompatActivity {
 
         cost = getResources().getFraction(R.fraction.kr_per_cl,1,1);
 
+        ((BeaconProximityDetection) this.getApplicationContext()).setPourActivity(this);
+
         // Locate gui
         pourMeter = (SeekBar) findViewById(R.id.pourMeter);
         priceAmount = (TextView) findViewById(R.id.priceAmount);
