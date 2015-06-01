@@ -3,20 +3,25 @@
     package="f2015.itsmap.ghostbar" >
 
     <application
-        android:name="f2015.itsmap.ghostbar.BeaconProximityDetection"
+        android:name=".BeaconProximityDetection"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:launchMode="singleInstance"
             android:name=".PourActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:launchMode="singleInstance" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".SuccesActivity"
+            android:label="@string/title_activity_succes" >
+        </activity>
     </application>
+
 </manifest>

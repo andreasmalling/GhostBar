@@ -127,7 +127,6 @@ public class PourActivity extends AppCompatActivity {
                 @Override
                 public void onSuccess(SuccessResult result) {
                     Toast.makeText(getApplicationContext(), "Payment succes", Toast.LENGTH_SHORT).show();
-<<<<<<< HEAD
 
                     /*JSONObject jsonObj;
 
@@ -171,11 +170,12 @@ public class PourActivity extends AppCompatActivity {
                         //createDialog("Error", "Cannot Establish Connection");
                     }
 
-=======
                     Log.d(TAG, "Signature: " + result.getSignature());
                     Log.d(TAG, "Order ID: " + result.getOrderId());
                     Log.d(TAG, "Trans. ID: " + result.getTransactionId());
->>>>>>> 086ef9de573f9e18886d85325488dcf37c910340
+
+                    Intent intent = new Intent(getApplicationContext(), SuccesActivity.class);
+                    startActivity(intent);
                 }
                 @Override
                 public void onFailure(FailureResult result) {
