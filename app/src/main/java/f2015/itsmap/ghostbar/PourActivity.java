@@ -3,6 +3,7 @@ package f2015.itsmap.ghostbar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,6 +24,7 @@ import dk.danskebank.mobilepay.sdk.model.SuccessResult;
 
 public class PourActivity extends AppCompatActivity {
 
+    private static final String TAG = "PourActivity";
     private int MOBILEPAY_PAYMENT_REQUEST_CODE = 1337;
 
     private SeekBar pourMeter;
@@ -111,6 +113,9 @@ public class PourActivity extends AppCompatActivity {
                 @Override
                 public void onSuccess(SuccessResult result) {
                     Toast.makeText(getApplicationContext(), "Payment succes", Toast.LENGTH_SHORT).show();
+                    Log.d(TAG, "Signature: " + result.getSignature());
+                    Log.d(TAG, "Order ID: " + result.getOrderId());
+                    Log.d(TAG, "Trans. ID: " + result.getTransactionId());
                 }
                 @Override
                 public void onFailure(FailureResult result) {
