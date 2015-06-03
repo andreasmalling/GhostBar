@@ -12,7 +12,9 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -126,6 +128,8 @@ public class PourActivity extends AppCompatActivity {
             MobilePay.getInstance().handleResult(resultCode, data, new ResultCallback() {
                 @Override
                 public void onSuccess(SuccessResult result) {
+                    //new HTTPHandler().execute(String.valueOf(R.string.URL));
+                    new HTTPHandler().execute("http://2party.dk/itsmap/beerbot_post.php");
                     Toast.makeText(getApplicationContext(), "Payment succes", Toast.LENGTH_SHORT).show();
 
                     /*JSONObject jsonObj;
@@ -135,40 +139,6 @@ public class PourActivity extends AppCompatActivity {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }*/
-
-                    String jsonString = "{\"transactionId\":\"1\",\"price\":\"2.5\",\"amount\":\"150\"}";
-                    HttpClient client = new DefaultHttpClient();
-                    HttpConnectionParams.setConnectionTimeout(client.getParams(), 10000); //Timeout Limit
-                    HttpResponse response;
-                    String URL = "http://2party.dk/itsmap/beerbot_post.php";
-
-                    try{
-                        HttpPost post = new HttpPost(URL);
-
-                        // Create a NameValuePair out of the JSONObject + a name
-                        //List<NameValuePair> nVP = new ArrayList<NameValuePair>(2);
-                        //nVP.add(new BasicNameValuePair("json", json.toString()));
-
-                        // Hand the NVP to the POST
-                        if(jsonString !=null) {
-                            post.setEntity(new StringEntity(jsonString));
-                            Log.i("main", "TestPOST - nVP = " + jsonString.toString());
-                        }
-
-                        // Collect the response
-                        response = client.execute(post);
-
-            /*Checking response */
-                        if(response!=null){
-                            InputStream in = response.getEntity().getContent(); //Get the data in the entity
-                            int stuff = in.read();
-                            Toast.makeText(getApplicationContext(),stuff, Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                    catch(Exception e){
-                        e.printStackTrace();
-                        //createDialog("Error", "Cannot Establish Connection");
-                    }
 
                     Log.d(TAG, "Signature: " + result.getSignature());
                     Log.d(TAG, "Order ID: " + result.getOrderId());
