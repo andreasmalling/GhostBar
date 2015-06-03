@@ -29,17 +29,18 @@ public class HTTPHandler extends AsyncTask<String, Void, String> {
         context = c;
     }
 
-    protected String doInBackground(String... URL) {
+    protected String doInBackground(String... params) {
         String returnString = "";
         HttpClient client = new DefaultHttpClient();
         HttpConnectionParams.setConnectionTimeout(client.getParams(), 10000); //Timeout Limit
         HttpResponse response;
 
 
-        String jsonString = "{\"transactionId\":\"1\",\"price\":\"2.5\",\"amount\":\"150\"}";
+        //String jsonString = "{\"transactionId\":\"1\",\"price\":\"2.5\",\"amount\":\"150\"}";
+        String jsonString = "{\"transactionId\":" + params[1] + ",\"price\":" + params[2] + ",\"amount\":"+ params[3] + "}";
 
         try {
-            HttpPost post = new HttpPost(URL[0]);
+            HttpPost post = new HttpPost(params[0]);
 
             // Create a NameValuePair out of the JSONObject + a name
             //List<NameValuePair> nVP = new ArrayList<NameValuePair>(2);
@@ -68,7 +69,7 @@ public class HTTPHandler extends AsyncTask<String, Void, String> {
 
                 //Toast.makeText(context, line, Toast.LENGTH_LONG).show();
             }
-        } 
+        }
         catch (Exception e) {
             e.printStackTrace();
             //createDialog("Error", "Cannot Establish Connection");
