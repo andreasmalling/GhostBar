@@ -1,6 +1,7 @@
 package f2015.itsmap.ghostbar;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
@@ -22,11 +23,12 @@ import java.io.InputStreamReader;
 public class HTTPHandler extends AsyncTask<String, Void, String> {
 
     private Context context;
-    /*HTTPHandler(Context c)
+    String line;
+    HTTPHandler(Context c)
     {
         context = c;
-    }*/
-    protected String  doInBackground(String... URL){
+    }
+    protected String doInBackground(String... URL){
         String returnString = "";
         HttpClient client = new DefaultHttpClient();
         HttpConnectionParams.setConnectionTimeout(client.getParams(), 10000); //Timeout Limit
@@ -45,7 +47,7 @@ public class HTTPHandler extends AsyncTask<String, Void, String> {
             // Hand the NVP to the POST
 
             post.setEntity(new StringEntity(jsonString));
-            Log.i("main", "TestPOST - nVP = " + jsonString.toString());
+            Log.i("main", "TestPOST - nVP = " + jsonString);
 
             try {
 
@@ -57,12 +59,15 @@ public class HTTPHandler extends AsyncTask<String, Void, String> {
                     InputStream in = response.getEntity().getContent(); //Get the data in the entity
                     BufferedReader r = new BufferedReader(new InputStreamReader(in));
                     StringBuilder total = new StringBuilder();
-                    String line;
+                    //line = "";
+
                     while ((line = r.readLine()) != null) {
                         total.append(line);
+                        //Toast.makeText(context, line, Toast.LENGTH_SHORT).show();
                     }
-                    returnString = line;
-                   // Toast.makeText(getApplicationContext(), line, Toast.LENGTH_LONG).show();
+                    returnString = total.toString();
+
+                    //Toast.makeText(context, line, Toast.LENGTH_LONG).show();
                 }
             }
             catch (Exception e) {
@@ -80,5 +85,13 @@ public class HTTPHandler extends AsyncTask<String, Void, String> {
     protected void onPostExecute(String s) {
         // TODO: check this.exception
         // TODO: do something with the feed
+        //Toast.makeText(context, line, Toast.LENGTH_SHORT).show();
+        String[] splitString = s.split(":");
+        String BeerId = splitString[3].replaceAll("\\p{P}","");
+        Toast.makeText(context, "Your beer ID is: " + BeerId, Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(context, SuccesActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtra("BeerId", BeerId);
+        context.startActivity(intent);
     }
 }

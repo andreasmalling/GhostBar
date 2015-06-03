@@ -129,7 +129,12 @@ public class PourActivity extends AppCompatActivity {
                 @Override
                 public void onSuccess(SuccessResult result) {
                     //new HTTPHandler().execute(String.valueOf(R.string.URL));
-                    new HTTPHandler().execute("http://2party.dk/itsmap/beerbot_post.php");
+                    String[] params = new String[4];
+                    params[0] = "http://2party.dk/itsmap/beerbot_post.php";
+                    params[1] = result.getTransactionId();
+                    params[2] = String.valueOf(price);
+                    params[3] = String.valueOf(amount);
+                    new HTTPHandler(getApplicationContext()).execute(params);
                     Toast.makeText(getApplicationContext(), "Payment succes", Toast.LENGTH_SHORT).show();
 
                     /*JSONObject jsonObj;
@@ -142,10 +147,10 @@ public class PourActivity extends AppCompatActivity {
 
                     Log.d(TAG, "Signature: " + result.getSignature());
                     Log.d(TAG, "Order ID: " + result.getOrderId());
-                    Log.d(TAG, "Trans. ID: " + result.getTransactionId());
+                    Log.d(TAG, "Trans. ID: " + result.getTransactionId());                    
 
-                    Intent intent = new Intent(getApplicationContext(), SuccesActivity.class);
-                    startActivity(intent);
+                    //Intent intent = new Intent(getApplicationContext(), SuccesActivity.class);
+                    //startActivity(intent);
                 }
                 @Override
                 public void onFailure(FailureResult result) {
