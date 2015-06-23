@@ -47,8 +47,9 @@ public class PourActivity extends AppCompatActivity {
     private TextView priceAmount;
     private TextView pourAmount;
     private Button buyButton;
-    private int amount = 0;
+    private int amount, min = 0;
     private float price, cost = 0;
+
 
     private DecimalFormat df;
 
@@ -60,7 +61,10 @@ public class PourActivity extends AppCompatActivity {
 
         MobilePay.getInstance().init(getResources().getString(R.string.mobile_pay_merchant_id));
 
+        min = getResources().getInteger(R.integer.min_size_cl);
+        amount = min;
         cost = getResources().getFraction(R.fraction.kr_per_cl,1,1);
+        price = cost*amount;
 
         ((BeaconProximityDetection) this.getApplicationContext()).setPourActivity(this);
 
@@ -75,9 +79,10 @@ public class PourActivity extends AppCompatActivity {
         df.setMaximumFractionDigits(2);
         df.setMinimumFractionDigits(2);
 
+        pourMeter.setProgress(10);
         priceAmount.setText(df.format(price) + " " + getResources().getString(R.string.currency));
-        pourAmount.setText(amount+ " " + getResources().getString(R.string.measure));
-
+        pourAmount.setText(amount + " " + getResources().getString(R.string.measure));
+        //onStopTrackingTouch(pourMeter);
         pourMeter.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -94,8 +99,16 @@ public class PourActivity extends AppCompatActivity {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-
+                if (amount < min) {
+                    pourMeter.setProgress(min);
+                    Toast.makeText(getApplicationContext(), "Minimum amount is " + min + " " + getResources().getString(R.string.measure), Toast.LENGTH_SHORT).show();
+                }
+                amount = pourMeter.getProgress();
+                price = amount * cost;
+                priceAmount.setText(df.format(price) + " " + getResources().getString(R.string.currency));
+                pourAmount.setText(amount + " " + getResources().getString(R.string.measure));
             }
+
         });
 
         buyButton.setOnClickListener(new View.OnClickListener() {
@@ -128,22 +141,13 @@ public class PourActivity extends AppCompatActivity {
             MobilePay.getInstance().handleResult(resultCode, data, new ResultCallback() {
                 @Override
                 public void onSuccess(SuccessResult result) {
-                    //new HTTPHandler().execute(String.valueOf(R.string.URL));
                     String[] params = new String[4];
-                    params[0] = "http://2party.dk/itsmap/beerbot_post.php";
+                    params[0] = getResources().getString(R.string.url);
                     params[1] = result.getTransactionId();
                     params[2] = String.valueOf(price);
                     params[3] = String.valueOf(amount);
                     new HTTPHandler(getApplicationContext()).execute(params);
                     Toast.makeText(getApplicationContext(), "Payment succes", Toast.LENGTH_SHORT).show();
-
-                    /*JSONObject jsonObj;
-
-                    try {
-                        jsonObj = new JSONObject("{\"transactionId\":\"1\",\"price\":\"2.5\",\"amount\":\"150\"}");
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }*/
 
                     Log.d(TAG, "Signature: " + result.getSignature());
                     Log.d(TAG, "Order ID: " + result.getOrderId());
