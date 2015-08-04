@@ -3,6 +3,6 @@
     <integer name="max_size_cl">40</integer>
     <integer name="min_size_cl">10</integer>
     <fraction name="kr_per_cl">50%</fraction>
-    <string name="mobile_pay_merchant_id">APPDK0000000000</string>
-    <string name="beacon_id1">2f231151-cf6d-1a0f-adf2-f1911ba9ffa6</string>
+    <string name="mobile_pay_merchant_id" translatable="false">APPDK0000000000</string>
+    <string name="beacon_id1" translatable="false">2f231151-cf6d-1a0f-adf2-f1911ba9ffa6</string>
 </resources>

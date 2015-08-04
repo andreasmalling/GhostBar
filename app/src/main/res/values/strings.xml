@@ -10,6 +10,6 @@
 
     <string name="currency">kr.</string>
     <string name="measure">cl.</string>
-    <string name="title_activity_succes">SuccesActivity</string>
-    <string name ="url">http://2party.dk/itsmap/beerbot_post.php</string>
+    <string name="title_activity_succes">Buy Completed</string>
+    <string name ="url" translatable="false">http://2party.dk/itsmap/beerbot_post.php</string>
 </resources>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">SpøgelsesBar</string>
+    <string name="action_settings">Indstillinger</string>
+    <string name="buy_button">Køb øl</string>
+    <string name="currency">kr.</string>
+    <string name="hello_world">Hej verden!</string>
+    <string name="title_activity_succes">Køb Gennemført</string>
+    <string name="measure">cl.</string>
+    <string name="dummy_amount">0 cl.</string>
+    <string name="dummy_price">0,00 cl.</string>
+</resources>
